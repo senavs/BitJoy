@@ -44,6 +44,9 @@ class Bytes:
         bits = '0b' + bits
         return int(bits, 2)
 
+    def __index__(self):
+        return self.__int__()
+
     def __repr__(self):
         cls = type(self)
         return f'{cls.__name__}{tuple(bit.VALUE for bit in self._bits)}'
