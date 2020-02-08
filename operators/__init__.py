@@ -1,2 +1,2 @@
 from operators.arithmetic import ArithmeticOperator
-from operators.logic import LogicalOperator
+from operators.logical import LogicalOperator

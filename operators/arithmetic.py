@@ -19,7 +19,7 @@ class ArithmeticOperator:
             :example: (Bit(0), Bit(1))
         """
 
-        sum_ = bit1.VALUE + bit2.VALUE
+        sum_ = bit1 + bit2
         if sum_ == 2:
             return Bit(0), Bit(1)
         elif sum_ == 1:
@@ -62,7 +62,7 @@ class ArithmeticOperator:
             :example: Bit(1)
         """
 
-        sum_ = bit1.VALUE + bit2.VALUE
+        sum_ = bit1 + bit2
         if sum_ == 0:
             return Bit(0)
         else:

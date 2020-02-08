@@ -30,7 +30,7 @@ class LogicalOperator:
             :type: Bit
         """
 
-        return Bit(bit1.VALUE + bit2.VALUE)
+        return bit1 + bit2
 
     @classmethod
     def and_(cls, bit1: Bit, bit2: Bit) -> Bit:
