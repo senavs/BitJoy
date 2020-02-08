@@ -11,6 +11,14 @@ class Bit:
         else:
             return super().__new__(NegativeBit)
 
+    def __add__(self, other):
+        if isinstance(other, Bit):
+            return Bit(self.VALUE + other.VALUE)
+        return NotImplemented
+
+    def __radd__(self, other):
+        return self.__add__(other)
+
     def __repr__(self):
         cls = type(self)
         return f'{cls.__name__}({self.VALUE})'
