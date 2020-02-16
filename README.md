@@ -5,10 +5,14 @@ Bit, Bytes and Logical Gates Abstraction
 Repository to 'Padrões de Projeto' subject at university. A height level Bit/Bytes and logical circuits abstractions.
 
 ## Usage
+### Installing
+```sh
+pip install bitjoy
+```
 ### Starting with Bit
 Importing and instantiating Bit class.
 ```python
-from dtypes import Bit
+from bitjoy.dtypes import Bit
 
 zero = Bit(0)
 # NegativeBit(0)
@@ -20,7 +24,7 @@ Creating a bit passing `0` in the `__init__` method, it will create another clas
 ### Logical Gates
 There is also support to logical operators (called logical gates or logical circuits).
 ```python
-from operators import LogicalOperator
+from bitjoy.dtypes import LogicalOperator
 ```
 - NOT
 ```python
@@ -57,7 +61,7 @@ There is also support to others Logical Gates:
 ### Bytes
 There is also a Bytes class.
 ```python
-from dtypes import Bytes
+from bitjoy.dtypes import Bytes
 ```
 Passing a list of Bit to the Bytes' constructor to creating a bytes instance. *NOTE that bytes only have 8 bits. So passing more or less it'll throw an error.*
 ```python
@@ -67,7 +71,7 @@ b = Bytes(bits)
 ```
 To creating a easy bytes, use `int_to_bytes` function from `utils` to help.
 ```python
-from utils.functions import int_to_bytes
+from bitjoy.utils import int_to_bytes
 
 b1 = int_to_bytes(10)
 # Bytes(0, 0, 0, 0, 1, 0, 1, 0)

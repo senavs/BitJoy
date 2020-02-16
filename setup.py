@@ -3,8 +3,6 @@ import setuptools
 with open('README.md') as file:
     long_description = file.read()
 
-print(setuptools.find_packages())
-
 setuptools.setup(
     name='bitjoy',
     version='1.0',
