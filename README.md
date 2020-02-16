@@ -1,8 +1,9 @@
 # BitJoy
-Bit, Bytes and Logical Gates Abstraction
+Bit, Bytes and Logical Gates Abstraction.
 
 ## About
-Repository to 'Padrões de Projeto' subject at university. A height level Bit/Bytes and logical circuits abstractions.
+Repository to 'Padrões de Projeto' subject at university. A height level Bit/Bytes and logical circuits abstractions.  
+Also Udacity Machine Learning Engineer Nanodegre program to add these package to PyPi.
 
 ## Usage
 ### Installing
