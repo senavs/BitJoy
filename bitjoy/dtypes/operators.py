@@ -1,4 +1,4 @@
-from dtypes import Bit, PositiveBit
+from ..dtypes.bits import Bit, PositiveBit
 
 
 class LogicalOperator:

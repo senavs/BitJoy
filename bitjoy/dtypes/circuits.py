@@ -1,7 +1,7 @@
 from typing import Tuple
 
-from dtypes import Bit
-from operators import LogicalOperator
+from .bits import Bit
+from .operators import LogicalOperator
 
 
 class Adder:

@@ -1,7 +1,7 @@
 from typing import Sequence
 
-from dtypes import Bit
-from circuits import Adder
+from .bits import Bit
+from .circuits import Adder
 
 
 class Bytes:
