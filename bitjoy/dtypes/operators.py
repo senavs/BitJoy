@@ -50,6 +50,20 @@ class LogicalOperator:
         return gate3
 
     # Derivative gates
+    @staticmethod
+    def nor_(cls, bit1: Bit, bit2: Bit) -> Bit:
+        """ Basic NOR logical operator
+
+        :param bit1: first bit
+            :type: Bit
+        :param bit2: second bit
+            :type: Bit
+        :return: bit1 | bit2
+            :type: Bit
+        """
+
+        return cls.not_(cls.or_(bit1, bit2))
+
     @classmethod
     def nand_(cls, bit1: Bit, bit2: Bit) -> Bit:
         """ Basic NAND logical operator
