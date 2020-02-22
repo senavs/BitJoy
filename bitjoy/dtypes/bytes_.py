@@ -1,4 +1,5 @@
-from typing import Sequence
+from itertools import zip_longest
+from typing import Sequence, List
 
 from .bits import Bit
 from .circuits import Adder
@@ -6,18 +7,54 @@ from .circuits import Adder
 
 class Bytes:
 
-    def __init__(self, bits: Sequence[Bit]):
-        # TODO: add architecture
-        self._bits = list(bits)
+    def __init__(self, bits: Sequence[Bit], architecture: int = None):
+        """Bytes class
 
-        assert len(self._bits) == 8, 'Bytes has only 8 bits'
+        :param bits: sequence of bits to make a bytes
+            :type: Sequence[Bit]
+        :param architecture: bytes architecture
+            :type: int
+            :default: len(bits) if len(bits) > 8 else 8
+        """
+
+        bits = list(bits)
+        bits_length = len(bits)
+
+        if not architecture:
+            architecture = 8 if bits_length < 8 else bits_length
+
+        if bits_length <= architecture:
+            bits = [Bit(0)] * (architecture - bits_length) + bits
+            bits_length = len(bits)
+        else:
+            raise ValueError('architecture must be greater or equal to bits\' length')
+
+        self._bits = bits
+        self._architecture = bits_length
 
     @property
-    def bits(self):
+    def bits(self) -> List[Bit]:
+        """getter list of bits"""
         return self._bits
 
+    @property
+    def architecture(self) -> int:
+        """getter bytes architecture"""
+        return self._architecture
+
+    def change_architecture(self, value: int) -> 'Bytes':
+        """Return a new Bytes class with another architecture
+
+        :param value: new architecture value
+            :type: int
+        :return: new Bytes object
+            :type: Bytes
+        """
+        cls = type(self)
+        return cls(self, value)
+
     def __iter__(self):
-        return iter(self._bits)
+        return iter(self.bits)
 
     def __add__(self, other):
         # TODO: optimization without reversed method
@@ -27,7 +64,7 @@ class Bytes:
             other_bits = reversed(other.bits)
             result = []
             carry = Bit(0)
-            for i, (self_bit, other_bit) in enumerate(zip(self_bits, other_bits)):
+            for self_bit, other_bit in zip_longest(self_bits, other_bits, fillvalue=Bit(0)):
                 sum_, carry = Adder.full(self_bit, other_bit, carry)
                 result.append(sum_)
             return cls(reversed(result))
@@ -37,7 +74,7 @@ class Bytes:
         return self.__add__(other)
 
     def __int__(self):
-        bits = ''.join(str(bit.value) for bit in self._bits)
+        bits = ''.join(str(bit.value) for bit in self.bits)
         bits = '0b' + bits
         return int(bits, 2)
 
@@ -46,4 +83,4 @@ class Bytes:
 
     def __repr__(self):
         cls = type(self)
-        return f'{cls.__name__}{tuple(bit.value for bit in self._bits)}'
+        return f'{cls.__name__}{tuple(bit.value for bit in self.bits)}'
