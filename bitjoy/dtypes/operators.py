@@ -50,7 +50,7 @@ class LogicalOperator:
         return gate3
 
     # Derivative gates
-    @staticmethod
+    @classmethod
     def nor_(cls, bit1: Bit, bit2: Bit) -> Bit:
         """ Basic NOR logical operator
 
