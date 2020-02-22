@@ -24,11 +24,9 @@ class Bytes:
             self_bits = reversed(self.bits)
             other_bits = reversed(other.bits)
             result = []
+            carry = Bit(0)
             for i, (self_bit, other_bit) in enumerate(zip(self_bits, other_bits)):
-                if i == 0:
-                    sum_, carry = Adder.full(self_bit, other_bit, Bit(0))
-                else:
-                    sum_, carry = Adder.full(self_bit, other_bit, carry)
+                sum_, carry = Adder.full(self_bit, other_bit, carry)
                 result.append(sum_)
             return cls(reversed(result))
         return NotImplemented
@@ -36,11 +34,8 @@ class Bytes:
     def __radd__(self, other):
         return self.__add__(other)
 
-    def sum_(self, other: 'Bytes') -> 'Bytes':
-        return self.__add__(other)
-
     def __int__(self):
-        bits = ''.join(str(bit.VALUE) for bit in self._bits)
+        bits = ''.join(str(bit.value) for bit in self._bits)
         bits = '0b' + bits
         return int(bits, 2)
 
@@ -49,4 +44,4 @@ class Bytes:
 
     def __repr__(self):
         cls = type(self)
-        return f'{cls.__name__}{tuple(bit.VALUE for bit in self._bits)}'
+        return f'{cls.__name__}{tuple(bit.value for bit in self._bits)}'

@@ -1,4 +1,4 @@
-from ..dtypes.bits import Bit, PositiveBit
+from ..dtypes.bits import Bit, OneBit
 
 
 class LogicalOperator:
@@ -13,7 +13,7 @@ class LogicalOperator:
         :return: ~bit
             :type: Bit
         """
-        if isinstance(bit, PositiveBit):
+        if isinstance(bit, OneBit):
             return Bit(0)
         else:
             return Bit(1)
