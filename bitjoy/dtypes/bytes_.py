@@ -7,6 +7,7 @@ from .circuits import Adder
 class Bytes:
 
     def __init__(self, bits: Sequence[Bit]):
+        # TODO: add architecture
         self._bits = list(bits)
 
         assert len(self._bits) == 8, 'Bytes has only 8 bits'
@@ -19,6 +20,7 @@ class Bytes:
         return iter(self._bits)
 
     def __add__(self, other):
+        # TODO: optimization without reversed method
         cls = type(self)
         if isinstance(other, cls):
             self_bits = reversed(self.bits)

@@ -10,7 +10,7 @@ def int_to_bytes(int_: int) -> Bytes:
     :return: bytes representation
         :type: Bytes
     """
-
+    # TODO: add architecture
     bin_ = f'{bin(int_)[2:]:0>8}'
     bytes_ = [Bit(int(bit)) for bit in bin_]
     return Bytes(bytes_)
