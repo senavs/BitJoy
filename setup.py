@@ -3,11 +3,9 @@ import setuptools
 with open('README.md') as file:
     long_description = file.read()
 
-print(setuptools.find_packages())
-
 setuptools.setup(
     name='bitjoy',
-    version='1.0',
+    version='1.1',
     author='Matheus Sena Vasconcelos',
     author_email='sena.matheus14@gmail.com',
     long_description=long_description,
