@@ -60,11 +60,9 @@ class Bytes:
         # TODO: optimization without reversed method
         cls = type(self)
         if isinstance(other, cls):
-            self_bits = reversed(self.bits)
-            other_bits = reversed(other.bits)
             result = []
             carry = Bit(0)
-            for self_bit, other_bit in zip_longest(self_bits, other_bits, fillvalue=Bit(0)):
+            for self_bit, other_bit in zip_longest(reversed(self.bits), reversed(other.bits), fillvalue=Bit(0)):
                 sum_, carry = Adder.full(self_bit, other_bit, carry)
                 result.append(sum_)
             return cls(reversed(result))
@@ -80,6 +78,11 @@ class Bytes:
 
     def __index__(self):
         return self.__int__()
+
+    def __eq__(self, other: 'Bytes') -> bool:
+        if self.architecture != other.architecture or int(self) != int(other):
+            return False
+        return True
 
     def __repr__(self):
         cls = type(self)

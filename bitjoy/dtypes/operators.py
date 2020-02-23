@@ -58,7 +58,7 @@ class LogicalOperator:
             :type: Bit
         :param bit2: second bit
             :type: Bit
-        :return: bit1 | bit2
+        :return: ~(bit1 | bit2)
             :type: Bit
         """
 
