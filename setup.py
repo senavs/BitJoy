@@ -6,11 +6,16 @@ with open('README.md') as file:
 setuptools.setup(
     name='bitjoy',
     version='1.1',
+    license='MIT',
+    description='Bit, Bytes and Logical Gates Abstraction.',
     author='Matheus Sena Vasconcelos',
     author_email='sena.matheus14@gmail.com',
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/senavs/BitJoy',
+    keywords=['bitjoy', 'bit', 'bytes', 'logical-operators',
+              'int_to_bytes', 'half-adder', 'full-adder',
+              'boolean', 'gates', 'abstraction'],
     packages=['bitjoy', 'bitjoy.dtypes', 'bitjoy.utils'],
     classifiers=[
         'Programming Language :: Python :: 3',
