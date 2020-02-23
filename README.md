@@ -16,11 +16,11 @@ Importing and instantiating Bit class.
 from bitjoy.dtypes import Bit
 
 zero = Bit(0)
-# NegativeBit(0)
+# ZeroBit(0)
 one = Bit(1)
-# PositiveBit(1)
+# OneBit(1)
 ```
-Creating a bit passing `0` in the `__init__` method, it will create another class: `NegativeBit`. The same away, passing `1`, it will create a `PositiveBit`.
+Creating a bit passing `0` in the `__init__` method, it will create another class: `ZeroBit`. The same away, passing `1`, it will create a `OneBit`.
 
 ### Logical Gates
 There is also support to logical operators (called logical gates or logical circuits).
@@ -30,34 +30,34 @@ from bitjoy.dtypes import LogicalOperator
 - NOT
 ```python
 LogicalOperator.not_(zero)
-# PositiveBit(1)
+# OneBit(1)
 LogicalOperator.not_(one)
-# NegativeBit(0)
+# OneBit(0)
 ```
 - OR
 ```python
 LogicalOperator.or_(zero, zero)
-# NegativeBit(0)
+# ZeroBit(0)
 LogicalOperator.or_(zero, one)
-# PositiveBit(1)
+# OneBit(1)
 LogicalOperator.or_(one, zero)
-# PositiveBit(1)
+# OneBit(1)
 LogicalOperator.or_(one, one)
-# PositiveBit(1)
+# OneBit(1)
 ```
 - AND
 ```python
 LogicalOperator.and_(zero, zero)
-# NegativeBit(0)
+# ZeroBit(0)
 LogicalOperator.and_(zero, one)
-# NegativeBit(0)
+# ZeroBit(0)
 LogicalOperator.and_(one, zero)
-# NegativeBit(0)
+# ZeroBit(0)
 LogicalOperator.and_(one, one)
-# PositiveBit(1)
+# OneBit(1)
 ```
 There is also support to others Logical Gates:  
-`nand_`, `xor_` and `xnor_`
+`nor_`, `nand_`, `xor_` and `xnor_`
 
 ### Bytes
 There is also a Bytes class.
