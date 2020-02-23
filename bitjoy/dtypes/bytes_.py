@@ -1,4 +1,5 @@
-from typing import Sequence
+from itertools import zip_longest
+from typing import Sequence, List
 
 from .bits import Bit
 from .circuits import Adder
@@ -6,29 +7,63 @@ from .circuits import Adder
 
 class Bytes:
 
-    def __init__(self, bits: Sequence[Bit]):
-        self._bits = list(bits)
+    def __init__(self, bits: Sequence[Bit], architecture: int = None):
+        """Bytes class
 
-        assert len(self._bits) == 8, 'Bytes has only 8 bits'
+        :param bits: sequence of bits to make a bytes
+            :type: Sequence[Bit]
+        :param architecture: bytes architecture
+            :type: int
+            :default: len(bits) if len(bits) > 8 else 8
+        """
+
+        bits = list(bits)
+        bits_length = len(bits)
+
+        if not architecture:
+            architecture = 8 if bits_length < 8 else bits_length
+
+        if bits_length <= architecture:
+            bits = [Bit(0)] * (architecture - bits_length) + bits
+            bits_length = len(bits)
+        else:
+            raise ValueError('architecture must be greater or equal to bits\' length')
+
+        self._bits = bits
+        self._architecture = bits_length
 
     @property
-    def bits(self):
+    def bits(self) -> List[Bit]:
+        """getter list of bits"""
         return self._bits
 
+    @property
+    def architecture(self) -> int:
+        """getter bytes architecture"""
+        return self._architecture
+
+    def change_architecture(self, value: int) -> 'Bytes':
+        """Return a new Bytes class with another architecture
+
+        :param value: new architecture value
+            :type: int
+        :return: new Bytes object
+            :type: Bytes
+        """
+        cls = type(self)
+        return cls(self, value)
+
     def __iter__(self):
-        return iter(self._bits)
+        return iter(self.bits)
 
     def __add__(self, other):
+        # TODO: optimization without reversed method
         cls = type(self)
         if isinstance(other, cls):
-            self_bits = reversed(self.bits)
-            other_bits = reversed(other.bits)
             result = []
-            for i, (self_bit, other_bit) in enumerate(zip(self_bits, other_bits)):
-                if i == 0:
-                    sum_, carry = Adder.full(self_bit, other_bit, Bit(0))
-                else:
-                    sum_, carry = Adder.full(self_bit, other_bit, carry)
+            carry = Bit(0)
+            for self_bit, other_bit in zip_longest(reversed(self.bits), reversed(other.bits), fillvalue=Bit(0)):
+                sum_, carry = Adder.full(self_bit, other_bit, carry)
                 result.append(sum_)
             return cls(reversed(result))
         return NotImplemented
@@ -36,17 +71,19 @@ class Bytes:
     def __radd__(self, other):
         return self.__add__(other)
 
-    def sum_(self, other: 'Bytes') -> 'Bytes':
-        return self.__add__(other)
-
     def __int__(self):
-        bits = ''.join(str(bit.VALUE) for bit in self._bits)
+        bits = ''.join(str(bit.value) for bit in self.bits)
         bits = '0b' + bits
         return int(bits, 2)
 
     def __index__(self):
         return self.__int__()
 
+    def __eq__(self, other: 'Bytes') -> bool:
+        if self.architecture != other.architecture or int(self) != int(other):
+            return False
+        return True
+
     def __repr__(self):
         cls = type(self)
-        return f'{cls.__name__}{tuple(bit.VALUE for bit in self._bits)}'
+        return f'{cls.__name__}{tuple(bit.value for bit in self.bits)}'

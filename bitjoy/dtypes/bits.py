@@ -3,17 +3,17 @@ from numbers import Integral
 
 
 class Bit:
-    VALUE = None
+    _VALUE = None
 
     def __new__(cls, value: int):
         if value > 0:
-            return super().__new__(PositiveBit)
+            return super().__new__(OneBit)
         else:
-            return super().__new__(NegativeBit)
+            return super().__new__(ZeroBit)
 
     def __add__(self, other):
         if isinstance(other, Bit):
-            return Bit(self.VALUE + other.VALUE)
+            return Bit(self.value + other.value)
         return NotImplemented
 
     def __radd__(self, other):
@@ -21,20 +21,24 @@ class Bit:
 
     def __repr__(self):
         cls = type(self)
-        return f'{cls.__name__}({self.VALUE})'
+        return f'{cls.__name__}({self.value})'
 
     def __eq__(self, other: Union['Bit', Integral]):
         cls = type(self)
         if isinstance(other, cls):
-            return self.VALUE == other.VALUE
+            return self.value == other.value
         elif isinstance(other, Integral):
-            return self.VALUE == other
+            return self.value == other
         return NotImplemented
 
+    @property
+    def value(self):
+        return self._VALUE
 
-class PositiveBit(Bit):
-    VALUE = 1
+
+class OneBit(Bit):
+    _VALUE = 1
 
 
-class NegativeBit(Bit):
-    VALUE = 0
+class ZeroBit(Bit):
+    _VALUE = 0

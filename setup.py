@@ -5,7 +5,7 @@ with open('README.md') as file:
 
 setuptools.setup(
     name='bitjoy',
-    version='1.0',
+    version='1.1',
     license='MIT',
     description='Bit, Bytes and Logical Gates Abstraction.',
     author='Matheus Sena Vasconcelos',

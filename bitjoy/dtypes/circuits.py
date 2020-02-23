@@ -37,7 +37,7 @@ class Adder:
             :example: Bit(1), Bit(0)
                       sum     carry
         """
-
+        # TODO: sub to 2 half method and a OR gate
         gate1 = LogicalOperator.xor_(bit1, bit2)
         gate2 = LogicalOperator.xor_(gate1, carry)
         gate3 = LogicalOperator.and_(carry, gate1)
